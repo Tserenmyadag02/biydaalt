@@ -12,7 +12,7 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "", //password
+  password: "Mdg20070202", //password
   database: "e_commerse",
 });
 
@@ -48,6 +48,45 @@ app.post("/createUsers", (req, res) => {
       res.status(500).send("Error creating user");
     } else {
       res.status(201).json({ id: result.insertId, name, email });
+    }
+  });
+});
+
+// Get all products
+app.get("/products", (req, res) => {
+  const query = "SELECT * FROM products";
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error fetching products:", err);
+      res.status(500).send("Error fetching products");
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+// Get all orders
+app.get("/orders", (req, res) => {
+  const query = "SELECT * FROM orders";
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error fetching orders:", err);
+      res.status(500).send("Error fetching orders");
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+// Get all reviews
+app.get("/reviews", (req, res) => {
+  const query = "SELECT * FROM reviews";
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error fetching reviews:", err);
+      res.status(500).send("Error fetching reviews");
+    } else {
+      res.json(results);
     }
   });
 });
